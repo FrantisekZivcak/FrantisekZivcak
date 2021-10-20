@@ -3,7 +3,7 @@
 	include '../../assets/navbar.php'
  ?>
 	<section>
-
+vvv
 		</section>
  <?php 
  	include '../../assets/pata.php'
