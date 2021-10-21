@@ -119,7 +119,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                                 </a>
                                 <br>
                                 <a href="#" class="text-secondary">
-                                    <small>.Zabudol som heslo..
+                                    <small>.Zabudol som heslo.
                                         
                                     </small>
                                 </a>

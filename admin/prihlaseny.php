@@ -13,7 +13,7 @@ include 'hlavickaAdmin.php';
 	  <div class="collapse navbar-collapse " id="navbarNavSupportedContent">
 	    <ul class="navbar-nav ml-auto">
 	      <li class="nav-item">
-	        <a class="nav-link text-light " href="">Odhlásiť sa</a>
+	        <a href="../admin" class="nav-link text-light">Odhlásiť sa</a>
 	      </li>
 	    </ul>
 	  </div>
@@ -28,32 +28,32 @@ include 'hlavickaAdmin.php';
 	    <hr>
 	    <ul class="nav nav-pills flex-column mb-auto">
 	      <li class="nav-item">
-	        <a href="../public/theme/domov/index.php" class="nav-link  text-white" aria-current="page">
+	        <a href="../public/theme/domov/index.php" class="nav-link  text-blue" aria-current="page">
 	          Domov
 	        </a>
 	      </li>
 	      <li>
-	        <a href="../public/theme/spravy/index.php" class="nav-link text-white">
+	        <a href="../public/theme/spravy/index.php" class="nav-link text-blue">
 	          Správy
 	        </a>
 	      </li>
 	      <li>
-	        <a href="../public/theme/onas/index.php" class="nav-link text-white">
+	        <a href="../public/theme/onas/index.php" class="nav-link text-blue">
 	          O nás
 	        </a>
 	      </li>
 	      <li>
-	        <a href="../public/theme/galeria/index.php" class="nav-link text-white">
+	        <a href="../public/theme/galeria/index.php" class="nav-link text-blue">
 	          Fotogaléria
 	        </a>
 	      </li>
 	      <li>
-	        <a href="../public/theme/blog/index.php" class="nav-link text-white">
+	        <a href="../public/theme/blog/index.php" class="nav-link text-blue">
 	          Blog
 	        </a>
 	      </li>
 	      <li>
-	        <a href="../public/theme/kontakt/index.php../public/theme/blog/index.php" class="nav-link text-white">
+	        <a href="../public/theme/kontakt/index.php../public/theme/blog/index.php" class="nav-link text-blue">
 	          Menu
 	        </a>
 	      </li>
