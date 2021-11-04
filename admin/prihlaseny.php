@@ -13,7 +13,7 @@ include 'hlavickaAdmin.php';
 	  <div class="collapse navbar-collapse " id="navbarNavSupportedContent">
 	    <ul class="navbar-nav ml-auto">
 	      <li class="nav-item">
-	        <a href="../admin" class="nav-link text-light">Odhlásiť sa</a>
+	        <a href="odhlasenie.php" class="nav-link text-light">Odhlásiť sa</a>
 	      </li>
 	    </ul>
 	  </div>

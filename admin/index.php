@@ -1,59 +1,73 @@
 <?php
-	include 'hlavickaAdmin.php';
-	include 'navbarAdmin.php';
-	include 'pataAdmin.php';
+
+$mysqli = new mysqli("localhost","demo214c","HkrWzpVj0kOb3zs3","demo214c");
+
+// Check connection
+if ($mysqli -> connect_errno) {
+  echo "Failed to connect to MySQL: " . $mysqli -> connect_error;
+  exit();
+}
 
 
 
-    if(isset($_SESSION['prihlaseny'])) {
+    include 'hlavickaAdmin.php';
+    include 'navbarAdmin.php';
+    include 'pataAdmin.php';
+
+
+
+    if($_SESSION['prihlaseny'] == 1) {
         header('Location: prihlaseny.php');
         exit();
     }
+
+
 ?>
 <?php
 $chyba ="";
 
+
+
 if($_SERVER['REQUEST_METHOD'] === 'POST'){
 
-     $uzivatelia = file('uzivatelia.txt', FILE_IGNORE_NEW_LINES | FILE_SKIP_EMPTY_LINES);
-     //$prihlasenie = [];
-        foreach ($uzivatelia as $uzivatel) {
-            list($k,$h) = explode('::', $uzivatel);
-               $prihlasenie[$k] = $h;
-                   }
 
-        if($_POST['password'] === $prihlasenie[$_POST['email-address']])
-        {
-            $_SESSION['prihlaseny'] = 1;
-            header('Location: prihlaseny.php');
-            exit();
-            ?>
-            <div class="alert alert-success alert-dismissible fade show" role="alert">
- <strong> Výborne si prihlásený </strong> <?php echo "" ?>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<?php
-        }
-        else if (!$prihlasenie[$_POST['email-address']])
-        {
-            ?>//uzivatel neexistuje
-            <div class="alert alert-danger alert-dismissible fade show" role="alert">
- <strong> Ups! </strong> <?php echo $chyba; ?>
-  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-    <span aria-hidden="true">&times;</span>
-  </button>
-</div>
-<?php
-        }
-        else {
-            //nespravne heslo
+    $user = $_POST['email-address'];
+    $heslo = md5($_POST['password']);
 
-        }
+    $sql = 'SELECT * FROM uzivatelia WHERE login = "'.$user.'" AND heslo = "'.$heslo.'" ';
+    $result = $mysqli->query($sql);
+
+    if ($result->num_rows > 0) {
+    // output data of each row
+    while($row = $result->fetch_assoc()) {
+        echo "id: " . $row["id"]. " - Name: " . $row["login"]. " " . $row["meno"]. "<br>";
+    }
+        $_SESSION['prihlaseny'] = 1;
+        $_SESSION['rola'] = $row["rola"];
+
+        header('Location: prihlaseny.php');
+        exit();
+        ?>
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <strong> Výborne... si prihlásený </strong> <?php echo "" ?>
+        <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+        <span aria-hidden="true">&times;</span>
+        </button>
+        </div>
+    <?php
+
+    } else {
+    echo '<div class="alert alert-danger alert-dismissible fade show" role="alert">
+    <strong> Ups! uzivatel neexistuje</strong> <?php echo $chyba; ?>
+     <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+       <span aria-hidden="true">&times;</span>
+     </button>
+   </div>';
+    }
+
     }
  ?>
-<body style="background-color:powderblue;">
+<body style="background-color:pink;">
 
     <div class="container mt-5">
         <div class="row justify-content-center">
@@ -72,10 +86,10 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                                             </svg>
                                         </span>
                                     </div>
-                                    <input type="text" id="email_address" class="form-control" name="email-address" required pattern="\S.{2,9}.[^()/><\][,;*_|]+">
+                                    <input type="text" id="email_address" class="form-control" name="email-address" required pattern="[^ ][\D|0-9]{3,9}">
 
                                     <div class="invalid-feedback">
-                                      Prosím zadaj meno (5-20 znakov)
+                                      Prosím zadaj meno (maximálne 20 znakov).
                                     </div>
                                 </div>
 
@@ -91,9 +105,9 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                                              </svg>
                                         </span>
                                     </div>
-                                    <input type="password" id="password" class="form-control" name="password" required pattern="(?=.*\d).{5,}" >
+                                    <input type="password" id="password" class="form-control" name="password" required pattern="[^ ][\D|0-9]{3,9}" >
                                     <div class="invalid-feedback">
-                                      Prosím zadaj heslo (minimálne 5 znakov.)
+                                      Prosím zadaj heslo (maximálne 20 znakov)
                                     </div>
                                 </div>
 
@@ -103,7 +117,7 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                                 <div class="col-md-6 ">
                                     <div class="checkbox">
                                         <label>
-                                            <input type="checkbox" name="remember"> Pamätať prihlásenie
+                                            <input type="checkbox" name="remember"> Zapamätať prihlásenie
                                         </label>
                                     </div>
                                 </div>
@@ -115,13 +129,11 @@ if($_SERVER['REQUEST_METHOD'] === 'POST'){
                                 </button>
                                 <br>
                                 <a href="#" class="text-secondary">
-                                    <small>Zaregistruj sa!</small>
+                                    <small>Zaregistruj sa</small>
                                 </a>
                                 <br>
                                 <a href="#" class="text-secondary">
-                                    <small>.Zabudol som heslo.
-                                        
-                                    </small>
+                                    <small>Zabudol som heslo</small>
                                 </a>
                             </div>
                     </div>
